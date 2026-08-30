@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RYZEN IOS PANELS</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0a0a0f;
+      color: #fff;
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      font-size: 1.6em;
+      font-weight: bold;
+      color: #00e6e6;
+      text-shadow: 0 0 12px #00e6e6;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      padding: 10px;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(0,255,255,0.4);
+      border-radius: 10px;
+      padding: 15px;
+      width: 90%;
+      max-width: 300px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(255,0,255,0.6);
+    }
+    .card h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 1.2em;
+      color: #9d7dff;
+      text-shadow: 0 0 8px #9d7dff;
+    }
+    .price {
+      font-size: 1em;
+      margin: 8px 0;
+      padding: 8px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .price:hover {
+      background: rgba(0,255,255,0.2);
+      transform: scale(1.05);
+    }
+    .stock {
+      font-size: 0.85em;
+      margin-top: 3px;
+      text-align: center;
+    }
+    .stock.green { color: #00ff99; }
+    .stock.yellow { color: #ffcc00; }
+    .stock.red { color: #ff4444; }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 10px;
+    }
+    .modal-content {
+      background: #111;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 0 15px #00e6e6;
+      width: 100%;
+      max-width: 350px;
+    }
+    .modal-content h3 {
+      font-size: 1.2em;
+      color: #00e6e6;
+      text-shadow: 0 0 8px #00e6e6;
+    }
+    .modal-content p {
+      margin: 6px 0;
+      font-size: 0.95em;
+    }
+    .modal-content img {
+      width: 160px;
+      margin: 10px 0;
+      border: 2px solid #00e6e6;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #00e6e6;
+    }
+    .payment {
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff00cc, #3333ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 8px rgba(255,0,255,0.6);
+    }
+    .close-btn {
+      margin-top: 10px;
+      padding: 8px 14px;
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.9em;
+    }
+    .close-btn:hover {
+      background: linear-gradient(90deg, #ff6a00, #ee0979);
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 0.8em;
+      color: #aaa;
+    }
+    .badges {
+      margin-top: 8px;
+    }
+    .badge {
+      display: inline-block;
+      margin: 3px;
+      padding: 4px 8px;
+      border: 1px solid #00e6e6;
+      border-radius: 5px;
+      font-size: 0.75em;
+      color: #00e6e6;
+      text-shadow: 0 0 5px #00e6e6;
+    }
+  </style>
+</head>
+<body>
+  <header>RYZEN IOS PANELS</header>
+  <div class="container">
+    <div class="card">
+      <h2>FLUORIDE PANEL</h2>
+      <div class="price" onclick="openModal('FLUORIDE PANEL','15 Days','₹450')">₹450 — 15 Days</div>
+      <div class="stock green">● 12 left</div>
+      <div class="price" onclick="openModal('FLUORIDE PANEL','30 Days','₹700')">₹700 — 30 Days</div>
+      <div class="stock yellow">● 7 left</div>
+    </div>
+    <div class="card">
+      <h2>MIGUL PANEL</h2>
+      <div class="price" onclick="openModal('MIGUL PANEL','15 Days','₹350')">₹350 — 15 Days</div>
+      <div class="stock green">● 15 left</div>
+      <div class="price" onclick="openModal('MIGUL PANEL','30 Days','₹600')">₹600 — 30 Days</div>
+      <div class="stock yellow">● 8 left</div>
+    </div>
+    <div class="card">
+      <h2>STREAMER IOS</h2>
+      <div class="price" onclick="openModal('STREAMER IOS','15 Days','₹1500')">₹1500 — 15 Days</div>
+      <div class="stock red">● 3 left</div>
+      <div class="price" onclick="openModal('STREAMER IOS','30 Days','₹2500')">₹2500 — 30 Days</div>
+      <div class="stock red">● 2 left</div>
+    </div>
+  </div>
+
+  <div class="modal" id="qrModal">
+    <div class="modal-content">
+      <h3 id="modalPanel"></h3>
+      <p id="modalDuration"></p>
+      <p id="modalPrice"></p>
+      <img src="qr-placeholder.png" alt="QR Code">
+      <p class="payment">Pay via UPI (Google Pay / PhonePe / Paytm)</p>
+      <button class="close-btn" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="badges">
+      <span class="badge">✔ SSL Secured</span>
+      <span class="badge">✔ Trusted Store</span>
+      <span class="badge">✔ High Trust Score</span>
+    </div>
+    <p>Developed by AYUSH DECODER</p>
+  </footer>
+
+  <script>
+    function openModal(panel, duration, price) {
+      document.getElementById('modalPanel').innerText = panel;
+      document.getElementById('modalDuration').innerText = duration;
+      document.getElementById('modalPrice').innerText = price;
+      document.getElementById('qrModal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('qrModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
