@@ -12,57 +12,57 @@
     }
     header {
       text-align: center;
-      padding: 20px;
-      font-size: 1.6em;
+      padding: 25px;
+      font-size: 1.8em;
       font-weight: bold;
       color: #00e6e6;
-      text-shadow: 0 0 12px #00e6e6;
+      text-shadow: 0 0 15px #00e6e6;
     }
     .container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 15px;
-      padding: 10px;
+      gap: 20px;
+      padding: 15px;
     }
     .card {
       background: rgba(255,255,255,0.05);
       border: 2px solid rgba(0,255,255,0.4);
-      border-radius: 10px;
-      padding: 15px;
-      width: 90%;
-      max-width: 300px;
-      box-shadow: 0 0 15px rgba(0,255,255,0.4);
+      border-radius: 12px;
+      padding: 20px;
+      width: 75%; /* 3/4 of screen */
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.4);
       transition: transform 0.3s, box-shadow 0.3s;
     }
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px rgba(255,0,255,0.6);
+      transform: translateY(-8px);
+      box-shadow: 0 0 30px rgba(255,0,255,0.6);
     }
     .card h2 {
       text-align: center;
-      margin-bottom: 10px;
-      font-size: 1.2em;
+      margin-bottom: 15px;
+      font-size: 1.4em;
       color: #9d7dff;
-      text-shadow: 0 0 8px #9d7dff;
+      text-shadow: 0 0 10px #9d7dff;
     }
     .price {
-      font-size: 1em;
-      margin: 8px 0;
-      padding: 8px;
+      font-size: 1.1em;
+      margin: 10px 0;
+      padding: 10px;
       background: rgba(0,0,0,0.4);
-      border-radius: 6px;
+      border-radius: 8px;
       text-align: center;
       cursor: pointer;
       transition: background 0.3s, transform 0.2s;
     }
     .price:hover {
-      background: rgba(0,255,255,0.2);
+      background: rgba(0,255,255,0.25);
       transform: scale(1.05);
     }
     .stock {
-      font-size: 0.85em;
-      margin-top: 3px;
+      font-size: 0.9em;
+      margin-top: 4px;
       text-align: center;
     }
     .stock.green { color: #00ff99; }
@@ -79,72 +79,73 @@
       justify-content: center;
       align-items: center;
       z-index: 1000;
-      padding: 10px;
+      padding: 15px;
     }
     .modal-content {
       background: #111;
-      padding: 15px;
-      border-radius: 10px;
+      padding: 20px;
+      border-radius: 12px;
       text-align: center;
       color: #fff;
-      box-shadow: 0 0 15px #00e6e6;
-      width: 100%;
-      max-width: 350px;
+      box-shadow: 0 0 20px #00e6e6;
+      width: 90%;
+      max-width: 380px;
     }
     .modal-content h3 {
-      font-size: 1.2em;
+      font-size: 1.3em;
       color: #00e6e6;
-      text-shadow: 0 0 8px #00e6e6;
+      text-shadow: 0 0 10px #00e6e6;
     }
     .modal-content p {
-      margin: 6px 0;
-      font-size: 0.95em;
+      margin: 8px 0;
+      font-size: 1em;
     }
     .modal-content img {
-      width: 160px;
-      margin: 10px 0;
+      width: 180px;
+      margin: 12px 0;
       border: 2px solid #00e6e6;
       border-radius: 8px;
       box-shadow: 0 0 12px #00e6e6;
     }
     .payment {
       font-weight: bold;
-      background: linear-gradient(90deg, #ff00cc, #3333ff);
+      font-size: 1.05em;
+      background: linear-gradient(90deg, #ff00cc, #00ffff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 8px rgba(255,0,255,0.6);
+      text-shadow: 0 0 10px rgba(255,0,255,0.7);
     }
     .close-btn {
-      margin-top: 10px;
-      padding: 8px 14px;
+      margin-top: 12px;
+      padding: 10px 16px;
       background: linear-gradient(90deg, #00c6ff, #0072ff);
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       color: #fff;
       cursor: pointer;
-      font-size: 0.9em;
+      font-size: 1em;
     }
     .close-btn:hover {
       background: linear-gradient(90deg, #ff6a00, #ee0979);
     }
     footer {
       text-align: center;
-      padding: 15px;
-      font-size: 0.8em;
+      padding: 20px;
+      font-size: 0.85em;
       color: #aaa;
     }
     .badges {
-      margin-top: 8px;
+      margin-top: 10px;
     }
     .badge {
       display: inline-block;
-      margin: 3px;
-      padding: 4px 8px;
+      margin: 4px;
+      padding: 5px 10px;
       border: 1px solid #00e6e6;
-      border-radius: 5px;
-      font-size: 0.75em;
+      border-radius: 6px;
+      font-size: 0.8em;
       color: #00e6e6;
-      text-shadow: 0 0 5px #00e6e6;
+      text-shadow: 0 0 6px #00e6e6;
     }
   </style>
 </head>
@@ -207,3 +208,4 @@
   </script>
 </body>
 </html>
+
