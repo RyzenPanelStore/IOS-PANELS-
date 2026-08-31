@@ -5,17 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RYZEN IOS PANELS</title>
   <style>
-    /* ===== BASE ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: #0a0a0f;
       color: #fff;
       overflow-x: hidden;
     }
-
-    /* ===== LOADING SCREEN ===== */
     #loader {
       position: fixed;
       top: 0; left: 0;
@@ -27,24 +23,16 @@
       z-index: 9999;
       transition: opacity 0.8s ease;
     }
-    #loader.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+    #loader.hidden { opacity: 0; pointer-events: none; }
     .loader-ring {
-      width: 120px;
-      height: 120px;
+      width: 120px; height: 120px;
       border: 12px solid rgba(0,255,255,0.15);
       border-top: 12px solid #00e6e6;
       border-radius: 50%;
       animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-      box-shadow: 0 0 60px rgba(0,230,230,0.2);
     }
-    @keyframes spin {
-      100% { transform: rotate(360deg); }
-    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    /* ===== HEADER ===== */
     header {
       text-align: center;
       padding: 40px 20px 10px;
@@ -69,7 +57,7 @@
     .status-badge {
       display: block;
       text-align: center;
-      margin-top: 14px;
+      margin: 14px auto;
       padding: 8px 24px;
       background: rgba(0,255,200,0.08);
       border: 1px solid #00e6e6;
@@ -77,12 +65,9 @@
       font-size: 0.9em;
       color: #00e6e6;
       width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
       box-shadow: 0 0 30px rgba(0,230,230,0.1);
     }
 
-    /* ===== CONTAINER ===== */
     .container {
       display: flex;
       flex-direction: column;
@@ -93,7 +78,6 @@
       margin: 0 auto;
     }
 
-    /* ===== CARDS ===== */
     .card {
       background: rgba(255,255,255,0.04);
       backdrop-filter: blur(6px);
@@ -121,7 +105,6 @@
       letter-spacing: 1px;
     }
 
-    /* ===== PRICE BUTTONS ===== */
     .price {
       display: block;
       width: 100%;
@@ -136,7 +119,6 @@
       cursor: pointer;
       color: #fff;
       transition: all 0.25s ease;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
     .price:hover {
       background: rgba(0,255,255,0.15);
@@ -155,7 +137,6 @@
     .stock.yellow { color: #ffcc00; }
     .stock.red { color: #ff4444; }
 
-    /* ===== MODAL ===== */
     .modal {
       display: none;
       position: fixed;
@@ -168,9 +149,7 @@
       z-index: 10000;
       padding: 20px;
     }
-    .modal.active {
-      display: flex;
-    }
+    .modal.active { display: flex; }
     .modal-content {
       background: linear-gradient(145deg, #14141e, #1a1a2e);
       padding: 40px 35px;
@@ -198,20 +177,12 @@
       font-size: 1em;
       margin-bottom: 20px;
     }
-
-    /* Payment card */
     .payment-card {
       background: rgba(0,255,255,0.06);
       border: 2px solid rgba(0,255,255,0.2);
       border-radius: 18px;
       padding: 18px 20px;
       margin: 18px 0;
-      box-shadow: 0 0 30px rgba(0,255,255,0.04);
-      animation: glowCard 4s infinite alternate;
-    }
-    @keyframes glowCard {
-      from { box-shadow: 0 0 15px rgba(0,255,255,0.1); }
-      to { box-shadow: 0 0 40px rgba(157,125,255,0.3); }
     }
     .payment-card .amount {
       font-size: 2em;
@@ -225,8 +196,6 @@
       text-transform: uppercase;
       letter-spacing: 2px;
     }
-
-    /* QR */
     .qr-placeholder {
       width: 380px;
       height: 380px;
@@ -241,18 +210,14 @@
       gap: 6px;
       font-size: 1.2em;
       color: #00e6e6;
-      box-shadow: 0 0 50px rgba(0,230,230,0.12);
       animation: qrPulse 2.5s ease-in-out infinite;
     }
-    .qr-placeholder span {
-      font-size: 4em;
-    }
+    .qr-placeholder span { font-size: 4em; }
     @keyframes qrPulse {
       0% { box-shadow: 0 0 30px rgba(0,230,230,0.08); }
       50% { box-shadow: 0 0 80px rgba(0,230,230,0.25); }
       100% { box-shadow: 0 0 30px rgba(0,230,230,0.08); }
     }
-
     .close-btn {
       margin-top: 24px;
       padding: 16px 44px;
@@ -264,15 +229,12 @@
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 0 30px rgba(0,114,255,0.25);
     }
     .close-btn:hover {
       transform: scale(1.05);
       background: linear-gradient(135deg, #ff6a00, #ee0979);
-      box-shadow: 0 0 40px rgba(238,9,121,0.35);
     }
 
-    /* ===== FOOTER ===== */
     footer {
       text-align: center;
       padding: 30px 20px 40px;
@@ -296,7 +258,6 @@
       background: rgba(0,255,255,0.04);
     }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
       header { font-size: 2.2em; }
       .card { padding: 28px 18px; }
@@ -311,71 +272,57 @@
   </style>
 </head>
 <body>
+  <div id="loader"><div class="loader-ring"></div></div>
 
-  <!-- ===== LOADER ===== -->
-  <div id="loader">
-    <div class="loader-ring"></div>
-  </div>
-
-  <!-- ===== HEADER ===== -->
   <header>⚡ RYZEN IOS PANELS</header>
   <div class="tagline">Premium iOS Panels • Trusted Since 2024</div>
   <div class="status-badge">🟢 STORE ONLINE • 24/7 AVAILABLE</div>
 
-  <!-- ===== PANELS ===== -->
   <div class="container">
 
-    <!-- FLUORIDE -->
     <div class="card">
       <h2>🧪 FLUORIDE PANEL</h2>
-      <div class="price" onclick="openModal('FLUORIDE PANEL', '15 Days', '₹450')">₹450 — 15 Days</div>
+      <div class="price" onclick="openModal('FLUORIDE PANEL','15 Days','₹450')">₹450 — 15 Days</div>
       <div class="stock green">● 12 left</div>
-      <div class="price" onclick="openModal('FLUORIDE PANEL', '30 Days', '₹700')">₹700 — 30 Days</div>
+      <div class="price" onclick="openModal('FLUORIDE PANEL','30 Days','₹700')">₹700 — 30 Days</div>
       <div class="stock yellow">● 7 left</div>
     </div>
 
-    <!-- MIGUL -->
     <div class="card">
       <h2>🌀 MIGUL PANEL</h2>
-      <div class="price" onclick="openModal('MIGUL PANEL', '15 Days', '₹350')">₹350 — 15 Days</div>
+      <div class="price" onclick="openModal('MIGUL PANEL','15 Days','₹350')">₹350 — 15 Days</div>
       <div class="stock green">● 15 left</div>
-      <div class="price" onclick="openModal('MIGUL PANEL', '30 Days', '₹600')">₹600 — 30 Days</div>
+      <div class="price" onclick="openModal('MIGUL PANEL','30 Days','₹600')">₹600 — 30 Days</div>
       <div class="stock yellow">● 8 left</div>
     </div>
 
-    <!-- STREAMER IOS -->
     <div class="card">
       <h2>🎥 STREAMER IOS</h2>
-      <div class="price" onclick="openModal('STREAMER IOS', '15 Days', '₹1500')">₹1500 — 15 Days</div>
+      <div class="price" onclick="openModal('STREAMER IOS','15 Days','₹1500')">₹1500 — 15 Days</div>
       <div class="stock red">● 3 left</div>
-      <div class="price" onclick="openModal('STREAMER IOS', '30 Days', '₹2500')">₹2500 — 30 Days</div>
+      <div class="price" onclick="openModal('STREAMER IOS','30 Days','₹2500')">₹2500 — 30 Days</div>
       <div class="stock red">● 1 left</div>
     </div>
 
   </div>
 
-  <!-- ===== MODAL ===== -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <h3 id="modalPanel">FLUORIDE PANEL</h3>
       <div class="sub" id="modalPlan">15 Days</div>
-
       <div class="payment-card">
         <div class="label">Total Amount</div>
         <div class="amount" id="modalPrice">₹450</div>
         <p style="font-size:0.9em; color:#888; margin-top:6px;">Scan QR to pay via UPI</p>
       </div>
-
       <div class="qr-placeholder">
         <span>📱</span>
         <p style="font-size:0.7em; opacity:0.6;">Scan to Pay</p>
       </div>
-
       <button class="close-btn" onclick="closeModal()">✅ Confirm &amp; Close</button>
     </div>
   </div>
 
-  <!-- ===== FOOTER ===== -->
   <footer>
     <div>© 2026 RYZEN IOS PANELS — All rights reserved.</div>
     <div class="badges">
@@ -385,16 +332,13 @@
     </div>
   </footer>
 
-  <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // Hide loader
     window.addEventListener('load', function() {
       const loader = document.getElementById('loader');
       loader.classList.add('hidden');
       setTimeout(() => { loader.style.display = 'none'; }, 900);
     });
 
-    // Open modal
     function openModal(panel, plan, price) {
       document.getElementById('modalPanel').textContent = panel;
       document.getElementById('modalPlan').textContent = plan;
@@ -403,23 +347,18 @@
       document.body.style.overflow = 'hidden';
     }
 
-    // Close modal
     function closeModal() {
       document.getElementById('modal').classList.remove('active');
       document.body.style.overflow = 'auto';
     }
 
-    // Close on background click
     document.getElementById('modal').addEventListener('click', function(e) {
       if (e.target === this) closeModal();
     });
 
-    // Close with ESC
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
     });
   </script>
-
 </body>
 </html>
-
