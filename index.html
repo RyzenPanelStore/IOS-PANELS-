@@ -1,569 +1,339 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>RYZEN IOS PANELS — OPTIMIZED</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RYZEN IOS PANELS</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: #08080f;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0a0a0f;
       color: #fff;
       overflow-x: hidden;
-      min-height: 100vh;
     }
-
-    /* ===== CANVAS (Lighter) ===== */
-    #particleCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* ===== LOADER ===== */
     #loader {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #08080f;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #0a0a0f;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 9999;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.8s ease;
     }
-    #loader.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+    #loader.hidden { opacity: 0; pointer-events: none; }
     .loader-ring {
-      width: 70px;
-      height: 70px;
-      border: 4px solid transparent;
-      border-top: 4px solid #00e6e6;
-      border-right: 4px solid #9d7dff;
+      width: 120px; height: 120px;
+      border: 12px solid rgba(0,255,255,0.15);
+      border-top: 12px solid #00e6e6;
       border-radius: 50%;
-      animation: spin 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+      animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
     }
-    @keyframes spin {
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    .loader-text {
-      margin-top: 20px;
-      font-size: 1em;
-      color: #00e6e6;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      animation: pulseText 1.5s ease-in-out infinite alternate;
-    }
-    @keyframes pulseText {
-      0% {
-        opacity: 0.4;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
 
-    /* ===== MAIN CONTENT ===== */
-    .main-content {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px 16px 50px;
-    }
-
-    /* ===== HEADER ===== */
     header {
       text-align: center;
-      padding: 30px 10px 10px;
-    }
-    header h1 {
-      font-size: 2.8em;
-      font-weight: 900;
+      padding: 40px 20px 10px;
+      font-size: 3em;
+      font-weight: bold;
       background: linear-gradient(135deg, #00e6e6, #9d7dff, #ff6ec7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: 1px;
+      animation: shimmer 4s ease-in-out infinite alternate;
     }
-    .typing-text {
-      font-size: 1em;
+    @keyframes shimmer {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(30deg); }
+    }
+    .tagline {
+      text-align: center;
+      font-size: 1.1em;
       color: #aaa;
-      margin-top: 6px;
-      letter-spacing: 2px;
-      min-height: 1.6em;
-      border-right: 2px solid #00e6e6;
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      animation: blinkCursor 0.8s step-end infinite;
-    }
-    @keyframes blinkCursor {
-      50% {
-        border-color: transparent;
-      }
+      margin-top: -8px;
+      letter-spacing: 3px;
     }
     .status-badge {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 6px 20px;
-      background: rgba(0, 255, 200, 0.08);
-      border: 1px solid rgba(0, 230, 230, 0.3);
-      border-radius: 50px;
-      font-size: 0.8em;
+      display: block;
+      text-align: center;
+      margin: 14px auto;
+      padding: 8px 24px;
+      background: rgba(0,255,200,0.08);
+      border: 1px solid #00e6e6;
+      border-radius: 30px;
+      font-size: 0.9em;
       color: #00e6e6;
+      width: fit-content;
+      box-shadow: 0 0 30px rgba(0,230,230,0.1);
     }
 
-    /* ===== CARDS (No heavy blur, no animated border) ===== */
     .container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 30px;
-      padding: 30px 0;
+      gap: 50px;
+      padding: 30px 20px 60px;
+      max-width: 800px;
+      margin: 0 auto;
     }
+
     .card {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(6px);
+      border: 3px solid rgba(0,255,255,0.25);
+      border-radius: 28px;
+      padding: 40px 30px;
       width: 100%;
-      max-width: 750px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 24px;
-      padding: 30px 24px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      max-width: 700px;
+      box-shadow: 0 0 50px rgba(0,255,255,0.06);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
     }
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(0, 230, 230, 0.04);
-      border-color: rgba(157, 125, 255, 0.2);
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 0 80px rgba(157,125,255,0.2), 0 0 120px rgba(0,255,255,0.08);
+      border-color: rgba(157,125,255,0.5);
     }
     .card h2 {
       text-align: center;
-      font-size: 2em;
+      margin-bottom: 28px;
+      font-size: 2.5em;
       font-weight: 800;
-      margin-bottom: 20px;
       background: linear-gradient(135deg, #9d7dff, #00e6e6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       letter-spacing: 1px;
     }
-    .card h2::after {
-      content: '';
-      display: block;
-      width: 50px;
-      height: 3px;
-      background: linear-gradient(90deg, #9d7dff, #00e6e6);
-      margin: 8px auto 0;
-      border-radius: 4px;
-    }
 
-    /* ===== PRICE BUTTONS ===== */
     .price {
       display: block;
       width: 100%;
-      padding: 16px 20px;
-      margin: 10px 0;
-      background: rgba(0, 0, 0, 0.5);
-      border: 2px solid rgba(0, 255, 255, 0.08);
-      border-radius: 14px;
-      font-size: 1.4em;
+      font-size: 1.8em;
       font-weight: 600;
-      color: #fff;
+      margin: 14px 0;
+      padding: 20px;
+      background: rgba(0,0,0,0.5);
+      border: 2px solid rgba(0,255,255,0.15);
+      border-radius: 16px;
       text-align: center;
       cursor: pointer;
+      color: #fff;
       transition: all 0.25s ease;
-      position: relative;
-      overflow: hidden;
     }
     .price:hover {
-      background: rgba(0, 255, 255, 0.06);
+      background: rgba(0,255,255,0.15);
       border-color: #00e6e6;
-      transform: scale(1.02);
+      transform: scale(1.03);
+      box-shadow: 0 0 50px rgba(0,230,230,0.15);
     }
-    .price:active {
-      transform: scale(0.97);
-    }
-
     .stock {
+      font-size: 1.2em;
+      margin-top: 2px;
+      margin-bottom: 10px;
       text-align: center;
-      font-size: 1em;
-      margin: 2px 0 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
+      letter-spacing: 1px;
     }
-    .stock .dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      animation: pulseDot 1.8s ease-in-out infinite;
-    }
-    .stock.green .dot {
-      background: #00ff99;
-    }
-    .stock.yellow .dot {
-      background: #ffcc00;
-    }
-    .stock.red .dot {
-      background: #ff4444;
-    }
-    @keyframes pulseDot {
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.3;
-        transform: scale(0.6);
-      }
-    }
+    .stock.green { color: #00ff99; }
+    .stock.yellow { color: #ffcc00; }
+    .stock.red { color: #ff4444; }
 
-    /* ===== MODAL (Lighter) ===== */
     .modal {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.88);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(12px);
       justify-content: center;
       align-items: center;
       z-index: 10000;
-      padding: 16px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      padding: 20px;
     }
-    .modal.active {
-      display: flex;
-      opacity: 1;
-    }
+    .modal.active { display: flex; }
     .modal-content {
-      background: #14141e;
-      padding: 30px 24px;
-      border-radius: 28px;
-      max-width: 600px;
+      background: linear-gradient(145deg, #14141e, #1a1a2e);
+      padding: 40px 35px;
+      border-radius: 32px;
+      max-width: 650px;
       width: 100%;
       text-align: center;
-      border: 1px solid rgba(0, 255, 255, 0.1);
-      box-shadow: 0 0 60px rgba(0, 230, 230, 0.04);
-      animation: modalPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: 2px solid rgba(0,255,255,0.3);
+      box-shadow: 0 0 80px rgba(0,230,230,0.12);
+      animation: modalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     @keyframes modalPop {
-      0% {
-        opacity: 0;
-        transform: scale(0.85) translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
+      0% { opacity: 0; transform: scale(0.7) translateY(40px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
     }
     .modal-content h3 {
-      font-size: 2em;
+      font-size: 2.2em;
       font-weight: 800;
       color: #00e6e6;
+      text-shadow: 0 0 30px rgba(0,230,230,0.3);
+      margin-bottom: 4px;
     }
     .modal-content .sub {
       color: #aaa;
       font-size: 1em;
-      margin-bottom: 14px;
+      margin-bottom: 20px;
     }
     .payment-card {
-      background: rgba(0, 255, 255, 0.04);
-      border: 1px solid rgba(0, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 14px 18px;
-      margin: 14px 0;
-    }
-    .payment-card .label {
-      font-size: 0.7em;
-      color: #888;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      background: rgba(0,255,255,0.06);
+      border: 2px solid rgba(0,255,255,0.2);
+      border-radius: 18px;
+      padding: 18px 20px;
+      margin: 18px 0;
     }
     .payment-card .amount {
       font-size: 2em;
       font-weight: 700;
       color: #00ff99;
+      text-shadow: 0 0 25px rgba(0,255,153,0.2);
     }
+    .payment-card .label {
+      font-size: 0.8em;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* QR IMAGE STYLING */
     .qr-image {
-      width: 220px;
+      width: 380px;
       max-width: 100%;
-      border-radius: 16px;
-      border: 2px solid rgba(0, 230, 230, 0.2);
-      margin: 14px 0;
+      border-radius: 20px;
+      border: 4px solid #00e6e6;
+      box-shadow: 0 0 50px rgba(0,230,230,0.2);
+      margin: 18px 0;
+      animation: qrPulse 2.5s ease-in-out infinite;
     }
+    @keyframes qrPulse {
+      0% { box-shadow: 0 0 30px rgba(0,230,230,0.1); }
+      50% { box-shadow: 0 0 80px rgba(0,230,230,0.3); }
+      100% { box-shadow: 0 0 30px rgba(0,230,230,0.1); }
+    }
+
     .close-btn {
-      margin-top: 18px;
-      padding: 14px 36px;
+      margin-top: 24px;
+      padding: 16px 44px;
       background: linear-gradient(135deg, #00c6ff, #0072ff);
       border: none;
       border-radius: 50px;
       color: #fff;
-      font-size: 1em;
+      font-size: 1.2em;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
     }
     .close-btn:hover {
-      transform: scale(1.04);
+      transform: scale(1.05);
       background: linear-gradient(135deg, #ff6a00, #ee0979);
     }
 
-    /* ===== FOOTER ===== */
     footer {
       text-align: center;
-      padding: 30px 16px 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.03);
+      padding: 30px 20px 40px;
+      border-top: 1px solid rgba(255,255,255,0.04);
       color: #555;
-      font-size: 0.8em;
+      font-size: 0.9em;
     }
     .badges {
-      margin-top: 10px;
+      margin-top: 14px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
     }
     .badge {
-      padding: 4px 14px;
-      border: 1px solid rgba(0, 255, 255, 0.06);
+      padding: 6px 18px;
+      border: 1px solid rgba(0,255,255,0.15);
       border-radius: 30px;
-      font-size: 0.7em;
+      font-size: 0.8em;
       color: #00e6e6;
-      background: rgba(0, 255, 255, 0.02);
+      background: rgba(0,255,255,0.04);
     }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 640px) {
-      header h1 {
-        font-size: 2em;
-      }
-      .typing-text {
-        font-size: 0.8em;
-        white-space: normal;
-      }
-      .card {
-        padding: 20px 16px;
-      }
-      .card h2 {
-        font-size: 1.6em;
-      }
-      .price {
-        font-size: 1.2em;
-        padding: 14px;
-      }
-      .modal-content {
-        padding: 22px 16px;
-      }
-      .modal-content h3 {
-        font-size: 1.6em;
-      }
-      .payment-card .amount {
-        font-size: 1.6em;
-      }
-      .qr-image {
-        width: 160px;
-      }
+    @media (max-width: 600px) {
+      header { font-size: 2.2em; }
+      .card { padding: 28px 18px; }
+      .card h2 { font-size: 1.8em; }
+      .price { font-size: 1.4em; padding: 16px; }
+      .modal-content { padding: 28px 18px; }
+      .qr-image { width: 220px; }
+      .payment-card .amount { font-size: 1.6em; }
+      .modal-content h3 { font-size: 1.8em; }
     }
   </style>
 </head>
 <body>
+  <div id="loader"><div class="loader-ring"></div></div>
 
-  <!-- ===== PARTICLE CANVAS (Lighter) ===== -->
-  <canvas id="particleCanvas"></canvas>
+  <header>⚡ RYZEN IOS PANELS</header>
+  <div class="tagline">Premium iOS Panels • Trusted Since 2024</div>
+  <div class="status-badge">🟢 STORE ONLINE • 24/7 AVAILABLE</div>
 
-  <!-- ===== LOADER ===== -->
-  <div id="loader">
-    <div class="loader-ring"></div>
-    <div class="loader-text">Ryzen</div>
-  </div>
+  <div class="container">
 
-  <!-- ===== MAIN CONTENT ===== -->
-  <div class="main-content">
-    <header>
-      <h1>⚡ RYZEN IOS PANELS</h1>
-      <div class="typing-text" id="typingText"></div>
-      <div class="status-badge">🟢 STORE ONLINE • 24/7</div>
-    </header>
-
-    <div class="container">
-      <div class="card">
-        <h2>🧪 FLUORIDE PANEL</h2>
-        <div class="price" onclick="openModal('FLUORIDE PANEL','15 Days','₹450')">₹450 — 15 Days</div>
-        <div class="stock green"><span class="dot"></span> 12 left</div>
-        <div class="price" onclick="openModal('FLUORIDE PANEL','30 Days','₹700')">₹700 — 30 Days</div>
-        <div class="stock yellow"><span class="dot"></span> 7 left</div>
-      </div>
-
-      <div class="card">
-        <h2>🌀 MIGUL PANEL</h2>
-        <div class="price" onclick="openModal('MIGUL PANEL','15 Days','₹350')">₹350 — 15 Days</div>
-        <div class="stock green"><span class="dot"></span> 15 left</div>
-        <div class="price" onclick="openModal('MIGUL PANEL','30 Days','₹600')">₹600 — 30 Days</div>
-        <div class="stock yellow"><span class="dot"></span> 8 left</div>
-      </div>
-
-      <div class="card">
-        <h2>🎥 STREAMER IOS</h2>
-        <div class="price" onclick="openModal('STREAMER IOS','15 Days','₹1500')">₹1500 — 15 Days</div>
-        <div class="stock red"><span class="dot"></span> 3 left</div>
-        <div class="price" onclick="openModal('STREAMER IOS','30 Days','₹2500')">₹2500 — 30 Days</div>
-        <div class="stock red"><span class="dot"></span> 1 left</div>
-      </div>
+    <div class="card">
+      <h2>🧪 FLUORIDE PANEL</h2>
+      <div class="price" onclick="openModal('FLUORIDE PANEL','15 Days','₹450')">₹450 — 15 Days</div>
+      <div class="stock green">● 12 left</div>
+      <div class="price" onclick="openModal('FLUORIDE PANEL','30 Days','₹700')">₹700 — 30 Days</div>
+      <div class="stock yellow">● 7 left</div>
     </div>
 
-    <footer>
-      <div>© 2026 RYZEN IOS PANELS</div>
-      <div class="badges">
-        <span class="badge">🔒 Secure</span>
-        <span class="badge">⚡ Instant</span>
-        <span class="badge">🛡️ Trusted</span>
-      </div>
-    </footer>
+    <div class="card">
+      <h2>🌀 MIGUL PANEL</h2>
+      <div class="price" onclick="openModal('MIGUL PANEL','15 Days','₹350')">₹350 — 15 Days</div>
+      <div class="stock green">● 15 left</div>
+      <div class="price" onclick="openModal('MIGUL PANEL','30 Days','₹600')">₹600 — 30 Days</div>
+      <div class="stock yellow">● 8 left</div>
+    </div>
+
+    <div class="card">
+      <h2>🎥 STREAMER IOS</h2>
+      <div class="price" onclick="openModal('STREAMER IOS','15 Days','₹1500')">₹1500 — 15 Days</div>
+      <div class="stock red">● 3 left</div>
+      <div class="price" onclick="openModal('STREAMER IOS','30 Days','₹2500')">₹2500 — 30 Days</div>
+      <div class="stock red">● 1 left</div>
+    </div>
+
   </div>
 
-  <!-- ===== MODAL ===== -->
+  <!-- ===== MODAL WITH YOUR QR IMAGE ===== -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <h3 id="modalPanel">FLUORIDE PANEL</h3>
       <div class="sub" id="modalPlan">15 Days</div>
       <div class="payment-card">
-        <div class="label">Total</div>
+        <div class="label">Total Amount</div>
         <div class="amount" id="modalPrice">₹450</div>
+        <p style="font-size:0.9em; color:#888; margin-top:6px;">Scan QR to pay via UPI</p>
       </div>
-      <img src="qr-placeholder.png" alt="QR" class="qr-image" id="qrImage" />
-      <button class="close-btn" onclick="closeModal()">✅ Confirm</button>
+
+      <!-- YOUR QR IMAGE -->
+      <img src="qr-placeholder.png" alt="QR Code" class="qr-image">
+
+      <button class="close-btn" onclick="closeModal()">✅ Confirm &amp; Close</button>
     </div>
   </div>
 
-  <!-- ===== JAVASCRIPT (Lighter) ===== -->
+  <footer>
+    <div>© 2026 RYZEN IOS PANELS — All rights reserved.</div>
+    <div class="badges">
+      <span class="badge">🔒 Secure Checkout</span>
+      <span class="badge">⚡ Instant Delivery</span>
+      <span class="badge">🛡️ Trusted Store</span>
+    </div>
+  </footer>
+
   <script>
-    // =============================================
-    // 1. LIGHT PARTICLE BACKGROUND (No lines)
-    // =============================================
-    (function lightParticles() {
-      const canvas = document.getElementById('particleCanvas');
-      const ctx = canvas.getContext('2d');
-      let w, h;
-      const particles = [];
-      const count = 30;
-
-      function resize() {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-      }
-      window.addEventListener('resize', resize);
-      resize();
-
-      class Particle {
-        constructor() {
-          this.x = Math.random() * w;
-          this.y = Math.random() * h;
-          this.vx = (Math.random() - 0.5) * 0.3;
-          this.vy = (Math.random() - 0.5) * 0.3;
-          this.r = Math.random() * 2 + 1;
-        }
-        update() {
-          this.x += this.vx;
-          this.y += this.vy;
-          if (this.x < 0 || this.x > w) this.vx *= -1;
-          if (this.y < 0 || this.y > h) this.vy *= -1;
-        }
-        draw() {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(0, 230, 230, 0.35)';
-          ctx.fill();
-        }
-      }
-
-      for (let i = 0; i < count; i++) {
-        particles.push(new Particle());
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, w, h);
-        for (const p of particles) {
-          p.update();
-          p.draw();
-        }
-        requestAnimationFrame(animate);
-      }
-      animate();
-    })();
-
-    // =============================================
-    // 2. TYPING TEXT
-    // =============================================
-    (function typing() {
-      const el = document.getElementById('typingText');
-      const phrases = ['Premium iOS Panels', 'Trusted Since 2024', 'Instant Delivery', 'Powered by Ryzen'];
-      let i = 0,
-        j = 0,
-        del = false,
-        speed = 60;
-
-      function type() {
-        const cur = phrases[i];
-        if (!del) {
-          el.textContent = cur.substring(0, j + 1);
-          j++;
-          if (j === cur.length) {
-            del = true;
-            speed = 1200;
-            setTimeout(type, speed);
-            return;
-          }
-          speed = 50 + Math.random() * 30;
-        } else {
-          el.textContent = cur.substring(0, j - 1);
-          j--;
-          if (j === 0) {
-            del = false;
-            i = (i + 1) % phrases.length;
-            speed = 300;
-            setTimeout(type, speed);
-            return;
-          }
-          speed = 30 + Math.random() * 20;
-        }
-        setTimeout(type, speed);
-      }
-      type();
-    })();
-
-    // =============================================
-    // 3. LOADER
-    // =============================================
     window.addEventListener('load', function() {
       const loader = document.getElementById('loader');
       loader.classList.add('hidden');
-      setTimeout(() => { loader.style.display = 'none'; }, 700);
+      setTimeout(() => { loader.style.display = 'none'; }, 900);
     });
 
-    // =============================================
-    // 4. MODAL
-    // =============================================
     function openModal(panel, plan, price) {
       document.getElementById('modalPanel').textContent = panel;
       document.getElementById('modalPlan').textContent = plan;
@@ -580,6 +350,7 @@
     document.getElementById('modal').addEventListener('click', function(e) {
       if (e.target === this) closeModal();
     });
+
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeModal();
     });
