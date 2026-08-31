@@ -5,27 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RYZEN IOS PANELS</title>
   <style>
-    /* ===== RESET & BASE ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* ===== BASE ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
       background: #0a0a0f;
       color: #fff;
       overflow-x: hidden;
-      min-height: 100vh;
     }
 
     /* ===== LOADING SCREEN ===== */
     #loader {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: #0a0a0f;
       display: flex;
       justify-content: center;
@@ -38,13 +32,13 @@
       pointer-events: none;
     }
     .loader-ring {
-      width: 80px;
-      height: 80px;
-      border: 6px solid rgba(0, 255, 255, 0.15);
-      border-top: 6px solid #00e6e6;
+      width: 120px;
+      height: 120px;
+      border: 12px solid rgba(0,255,255,0.15);
+      border-top: 12px solid #00e6e6;
       border-radius: 50%;
       animation: spin 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-      box-shadow: 0 0 40px rgba(0, 230, 230, 0.3);
+      box-shadow: 0 0 60px rgba(0,230,230,0.2);
     }
     @keyframes spin {
       100% { transform: rotate(360deg); }
@@ -54,15 +48,11 @@
     header {
       text-align: center;
       padding: 40px 20px 10px;
-    }
-    header h1 {
-      font-size: 3.2em;
-      font-weight: 900;
+      font-size: 3em;
+      font-weight: bold;
       background: linear-gradient(135deg, #00e6e6, #9d7dff, #ff6ec7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: none;
-      letter-spacing: 2px;
       animation: shimmer 4s ease-in-out infinite alternate;
     }
     @keyframes shimmer {
@@ -70,24 +60,29 @@
       100% { filter: hue-rotate(30deg); }
     }
     .tagline {
+      text-align: center;
       font-size: 1.1em;
       color: #aaa;
-      margin-top: 6px;
+      margin-top: -8px;
       letter-spacing: 3px;
     }
     .status-badge {
-      display: inline-block;
-      margin-top: 12px;
+      display: block;
+      text-align: center;
+      margin-top: 14px;
       padding: 8px 24px;
-      background: rgba(0, 255, 200, 0.12);
+      background: rgba(0,255,200,0.08);
       border: 1px solid #00e6e6;
       border-radius: 30px;
-      font-size: 0.95em;
+      font-size: 0.9em;
       color: #00e6e6;
-      box-shadow: 0 0 20px rgba(0, 230, 230, 0.15);
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 30px rgba(0,230,230,0.1);
     }
 
-    /* ===== CONTAINER & CARDS ===== */
+    /* ===== CONTAINER ===== */
     .container {
       display: flex;
       flex-direction: column;
@@ -98,27 +93,28 @@
       margin: 0 auto;
     }
 
+    /* ===== CARDS ===== */
     .card {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(8px);
-      border: 2px solid rgba(0, 255, 255, 0.25);
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(6px);
+      border: 3px solid rgba(0,255,255,0.25);
       border-radius: 28px;
       padding: 40px 30px;
-      box-shadow: 0 0 50px rgba(0, 255, 255, 0.08);
+      width: 100%;
+      max-width: 700px;
+      box-shadow: 0 0 50px rgba(0,255,255,0.06);
       transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
     }
     .card:hover {
-      transform: translateY(-8px) scale(1.01);
-      box-shadow: 0 0 70px rgba(157, 125, 255, 0.25), 0 0 120px rgba(0, 255, 255, 0.1);
-      border-color: rgba(157, 125, 255, 0.6);
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 0 80px rgba(157,125,255,0.2), 0 0 120px rgba(0,255,255,0.08);
+      border-color: rgba(157,125,255,0.5);
     }
-
     .card h2 {
       text-align: center;
-      font-size: 2.4em;
-      font-weight: 800;
       margin-bottom: 28px;
+      font-size: 2.5em;
+      font-weight: 800;
       background: linear-gradient(135deg, #9d7dff, #00e6e6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -126,41 +122,33 @@
     }
 
     /* ===== PRICE BUTTONS ===== */
-    .price-btn {
+    .price {
       display: block;
       width: 100%;
-      padding: 18px 20px;
-      margin-bottom: 14px;
-      background: rgba(0, 0, 0, 0.5);
-      border: 2px solid rgba(0, 255, 255, 0.2);
-      border-radius: 16px;
-      color: #fff;
-      font-size: 1.5em;
+      font-size: 1.8em;
       font-weight: 600;
+      margin: 14px 0;
+      padding: 20px;
+      background: rgba(0,0,0,0.5);
+      border: 2px solid rgba(0,255,255,0.15);
+      border-radius: 16px;
       text-align: center;
       cursor: pointer;
+      color: #fff;
       transition: all 0.25s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-    .price-btn:hover {
-      background: rgba(0, 255, 255, 0.15);
+    .price:hover {
+      background: rgba(0,255,255,0.15);
       border-color: #00e6e6;
-      transform: scale(1.02);
-      box-shadow: 0 0 40px rgba(0, 230, 230, 0.2);
+      transform: scale(1.03);
+      box-shadow: 0 0 50px rgba(0,230,230,0.15);
     }
-    .price-btn .plan {
-      font-size: 0.55em;
-      font-weight: 400;
-      color: #aaa;
-      display: block;
-      margin-top: 4px;
-    }
-
     .stock {
-      text-align: center;
-      font-size: 1em;
-      margin-top: 4px;
+      font-size: 1.2em;
+      margin-top: 2px;
       margin-bottom: 10px;
+      text-align: center;
       letter-spacing: 1px;
     }
     .stock.green { color: #00ff99; }
@@ -171,11 +159,9 @@
     .modal {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.92);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.92);
       backdrop-filter: blur(12px);
       justify-content: center;
       align-items: center;
@@ -185,29 +171,27 @@
     .modal.active {
       display: flex;
     }
-
     .modal-content {
       background: linear-gradient(145deg, #14141e, #1a1a2e);
       padding: 40px 35px;
       border-radius: 32px;
-      max-width: 620px;
+      max-width: 650px;
       width: 100%;
       text-align: center;
-      border: 2px solid rgba(0, 255, 255, 0.3);
-      box-shadow: 0 0 80px rgba(0, 230, 230, 0.15);
+      border: 2px solid rgba(0,255,255,0.3);
+      box-shadow: 0 0 80px rgba(0,230,230,0.12);
       animation: modalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     @keyframes modalPop {
       0% { opacity: 0; transform: scale(0.7) translateY(40px); }
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
-
     .modal-content h3 {
       font-size: 2.2em;
       font-weight: 800;
       color: #00e6e6;
-      text-shadow: 0 0 30px rgba(0, 230, 230, 0.3);
-      margin-bottom: 6px;
+      text-shadow: 0 0 30px rgba(0,230,230,0.3);
+      margin-bottom: 4px;
     }
     .modal-content .sub {
       color: #aaa;
@@ -215,25 +199,25 @@
       margin-bottom: 20px;
     }
 
-    /* Payment card inside modal */
+    /* Payment card */
     .payment-card {
-      background: rgba(0, 255, 255, 0.06);
-      border: 2px solid rgba(0, 255, 255, 0.25);
+      background: rgba(0,255,255,0.06);
+      border: 2px solid rgba(0,255,255,0.2);
       border-radius: 18px;
       padding: 18px 20px;
       margin: 18px 0;
-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
+      box-shadow: 0 0 30px rgba(0,255,255,0.04);
+      animation: glowCard 4s infinite alternate;
     }
-    .payment-card p {
-      font-size: 1.3em;
-      margin: 6px 0;
-      color: #ddd;
+    @keyframes glowCard {
+      from { box-shadow: 0 0 15px rgba(0,255,255,0.1); }
+      to { box-shadow: 0 0 40px rgba(157,125,255,0.3); }
     }
     .payment-card .amount {
-      font-size: 1.8em;
+      font-size: 2em;
       font-weight: 700;
       color: #00ff99;
-      text-shadow: 0 0 25px rgba(0, 255, 153, 0.2);
+      text-shadow: 0 0 25px rgba(0,255,153,0.2);
     }
     .payment-card .label {
       font-size: 0.8em;
@@ -242,57 +226,57 @@
       letter-spacing: 2px;
     }
 
-    /* QR Code */
+    /* QR */
     .qr-placeholder {
-      width: 340px;
-      height: 340px;
+      width: 380px;
+      height: 380px;
       margin: 18px auto;
       background: radial-gradient(circle at center, #1a2a2a, #0a0a0f);
       border: 4px solid #00e6e6;
-      border-radius: 20px;
+      border-radius: 24px;
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
+      gap: 6px;
       font-size: 1.2em;
       color: #00e6e6;
-      box-shadow: 0 0 50px rgba(0, 230, 230, 0.15);
+      box-shadow: 0 0 50px rgba(0,230,230,0.12);
       animation: qrPulse 2.5s ease-in-out infinite;
-      flex-direction: column;
-      gap: 8px;
     }
     .qr-placeholder span {
-      font-size: 3.5em;
+      font-size: 4em;
     }
     @keyframes qrPulse {
-      0% { box-shadow: 0 0 30px rgba(0, 230, 230, 0.1); }
-      50% { box-shadow: 0 0 70px rgba(0, 230, 230, 0.3); }
-      100% { box-shadow: 0 0 30px rgba(0, 230, 230, 0.1); }
+      0% { box-shadow: 0 0 30px rgba(0,230,230,0.08); }
+      50% { box-shadow: 0 0 80px rgba(0,230,230,0.25); }
+      100% { box-shadow: 0 0 30px rgba(0,230,230,0.08); }
     }
 
     .close-btn {
       margin-top: 24px;
-      padding: 16px 40px;
+      padding: 16px 44px;
       background: linear-gradient(135deg, #00c6ff, #0072ff);
       border: none;
       border-radius: 50px;
       color: #fff;
-      font-size: 1.1em;
+      font-size: 1.2em;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 0 30px rgba(0, 114, 255, 0.3);
+      box-shadow: 0 0 30px rgba(0,114,255,0.25);
     }
     .close-btn:hover {
       transform: scale(1.05);
       background: linear-gradient(135deg, #ff6a00, #ee0979);
-      box-shadow: 0 0 40px rgba(238, 9, 121, 0.4);
+      box-shadow: 0 0 40px rgba(238,9,121,0.35);
     }
 
     /* ===== FOOTER ===== */
     footer {
       text-align: center;
       padding: 30px 20px 40px;
-      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      border-top: 1px solid rgba(255,255,255,0.04);
       color: #555;
       font-size: 0.9em;
     }
@@ -305,23 +289,23 @@
     }
     .badge {
       padding: 6px 18px;
-      border: 1px solid rgba(0, 255, 255, 0.15);
+      border: 1px solid rgba(0,255,255,0.15);
       border-radius: 30px;
       font-size: 0.8em;
       color: #00e6e6;
-      background: rgba(0, 255, 255, 0.04);
+      background: rgba(0,255,255,0.04);
     }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 600px) {
-      header h1 { font-size: 2.2em; }
+      header { font-size: 2.2em; }
       .card { padding: 28px 18px; }
       .card h2 { font-size: 1.8em; }
-      .price-btn { font-size: 1.2em; padding: 16px; }
+      .price { font-size: 1.4em; padding: 16px; }
       .modal-content { padding: 28px 18px; }
       .qr-placeholder { width: 220px; height: 220px; }
-      .qr-placeholder span { font-size: 2.8em; }
-      .payment-card p { font-size: 1.1em; }
+      .qr-placeholder span { font-size: 3em; }
+      .payment-card .amount { font-size: 1.6em; }
       .modal-content h3 { font-size: 1.8em; }
     }
   </style>
@@ -334,51 +318,37 @@
   </div>
 
   <!-- ===== HEADER ===== -->
-  <header>
-    <h1>⚡ RYZEN IOS PANELS</h1>
-    <div class="tagline">Premium iOS Panels • Trusted Since 2024</div>
-    <div class="status-badge">🟢 STORE ONLINE • 24/7 AVAILABLE</div>
-  </header>
+  <header>⚡ RYZEN IOS PANELS</header>
+  <div class="tagline">Premium iOS Panels • Trusted Since 2024</div>
+  <div class="status-badge">🟢 STORE ONLINE • 24/7 AVAILABLE</div>
 
   <!-- ===== PANELS ===== -->
   <div class="container">
 
-    <!-- Card 1: FLUORIDE -->
+    <!-- FLUORIDE -->
     <div class="card">
       <h2>🧪 FLUORIDE PANEL</h2>
-      <div class="price-btn" onclick="openModal('FLUORIDE PANEL', '15 Days', '₹450')">
-        ₹450 <span class="plan">15 Days</span>
-      </div>
+      <div class="price" onclick="openModal('FLUORIDE PANEL', '15 Days', '₹450')">₹450 — 15 Days</div>
       <div class="stock green">● 12 left</div>
-      <div class="price-btn" onclick="openModal('FLUORIDE PANEL', '30 Days', '₹700')">
-        ₹700 <span class="plan">30 Days</span>
-      </div>
+      <div class="price" onclick="openModal('FLUORIDE PANEL', '30 Days', '₹700')">₹700 — 30 Days</div>
       <div class="stock yellow">● 7 left</div>
     </div>
 
-    <!-- Card 2: MIGUL -->
+    <!-- MIGUL -->
     <div class="card">
       <h2>🌀 MIGUL PANEL</h2>
-      <div class="price-btn" onclick="openModal('MIGUL PANEL', '15 Days', '₹350')">
-        ₹350 <span class="plan">15 Days</span>
-      </div>
+      <div class="price" onclick="openModal('MIGUL PANEL', '15 Days', '₹350')">₹350 — 15 Days</div>
       <div class="stock green">● 15 left</div>
-      <div class="price-btn" onclick="openModal('MIGUL PANEL', '30 Days', '₹600')">
-        ₹600 <span class="plan">30 Days</span>
-      </div>
+      <div class="price" onclick="openModal('MIGUL PANEL', '30 Days', '₹600')">₹600 — 30 Days</div>
       <div class="stock yellow">● 8 left</div>
     </div>
 
-    <!-- Card 3: STREAMER IOS -->
+    <!-- STREAMER IOS -->
     <div class="card">
       <h2>🎥 STREAMER IOS</h2>
-      <div class="price-btn" onclick="openModal('STREAMER IOS', '15 Days', '₹1500')">
-        ₹1500 <span class="plan">15 Days</span>
-      </div>
+      <div class="price" onclick="openModal('STREAMER IOS', '15 Days', '₹1500')">₹1500 — 15 Days</div>
       <div class="stock red">● 3 left</div>
-      <div class="price-btn" onclick="openModal('STREAMER IOS', '30 Days', '₹2500')">
-        ₹2500 <span class="plan">30 Days</span>
-      </div>
+      <div class="price" onclick="openModal('STREAMER IOS', '30 Days', '₹2500')">₹2500 — 30 Days</div>
       <div class="stock red">● 1 left</div>
     </div>
 
@@ -396,7 +366,6 @@
         <p style="font-size:0.9em; color:#888; margin-top:6px;">Scan QR to pay via UPI</p>
       </div>
 
-      <!-- QR Placeholder -->
       <div class="qr-placeholder">
         <span>📱</span>
         <p style="font-size:0.7em; opacity:0.6;">Scan to Pay</p>
@@ -418,16 +387,14 @@
 
   <!-- ===== JAVASCRIPT ===== -->
   <script>
-    // Hide loader after page loads
+    // Hide loader
     window.addEventListener('load', function() {
       const loader = document.getElementById('loader');
       loader.classList.add('hidden');
-      setTimeout(function() {
-        loader.style.display = 'none';
-      }, 900);
+      setTimeout(() => { loader.style.display = 'none'; }, 900);
     });
 
-    // Modal functions
+    // Open modal
     function openModal(panel, plan, price) {
       document.getElementById('modalPanel').textContent = panel;
       document.getElementById('modalPlan').textContent = plan;
@@ -436,40 +403,23 @@
       document.body.style.overflow = 'hidden';
     }
 
+    // Close modal
     function closeModal() {
       document.getElementById('modal').classList.remove('active');
       document.body.style.overflow = 'auto';
     }
 
-    // Close modal on background click
+    // Close on background click
     document.getElementById('modal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeModal();
-      }
+      if (e.target === this) closeModal();
     });
 
-    // Close modal with ESC key
+    // Close with ESC
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeModal();
-      }
+      if (e.key === 'Escape') closeModal();
     });
   </script>
 
 </body>
-</html>div class="price" onclick="openModal('FLUORIDE PANEL','15 Days','₹450')">₹450 — 15 Days</div>
-      <div class="stock green">● 12 left</div>
-      <div class="price" onclick="openModal('FLUORIDE PANEL','30 Days','₹700')">₹700 — 30 Days</div>
-      <div class="stock yellow">● 7 left</div>
-    </div>
-    <div class="card">
-      <h2>MIGUL PANEL</h2>
-      <div class="price" onclick="openModal('MIGUL PANEL','15 Days','₹350')">₹350 — 15 Days</div>
-      <div class="stock green">● 15 left</div>
-      <div class="price" onclick="openModal('MIGUL PANEL','30 Days','₹600')">₹600 — 30 Days</div>
-      <div class="stock yellow">● 8 left</div>
-    </div>
-    <div class="card">
-      <
-
+</html>
 
